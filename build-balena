@@ -1,0 +1,9 @@
+#!/bin/bash
+# add yocto source dir  as arg $1 to map it to container
+mkdir -p yocto/output
+
+docker run -it --rm \
+  -v "$1":/home/yocto/input \
+  -v "$PWD/yocto/output":/home/yocto/output \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  balena-os-builder:latest

@@ -1,0 +1,8 @@
+#!/bin/bash
+# removed option --no-cache 
+DOCKER_GID=$(getent group | grep docker | awk -F: '{printf "%d\n", $3}')
+echo "DOCKER_GID=$DOCKER_GID"
+docker build --build-arg "host_uid=$(id -u)" \
+  --build-arg "host_gid=$(id -g)" \
+  --build-arg "docker_gid=$DOCKER_GID" \
+  --tag "balena-os-builder:latest" .
